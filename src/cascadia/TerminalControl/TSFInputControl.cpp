@@ -172,6 +172,9 @@ namespace winrt::Microsoft::Terminal::TerminalControl::implementation
     // - <none>
     void TSFInputControl::_compositionStartedHandler(CoreTextEditContext sender, CoreTextCompositionStartedEventArgs const& /*args*/)
     {
+        // TODO: Remove
+        OutputDebugString(L"👀 --- _compositionStartedHandler() called.\n");
+
         _inComposition = true;
     }
 
@@ -185,6 +188,9 @@ namespace winrt::Microsoft::Terminal::TerminalControl::implementation
     // - <none>
     void TSFInputControl::_compositionCompletedHandler(CoreTextEditContext sender, CoreTextCompositionCompletedEventArgs const& /*args*/)
     {
+        // TODO: Remove
+        OutputDebugString(L"👀 --- _compositionCompletedHandler() called.\n");
+
         _inComposition = false;
 
         // only need to do work if the current buffer has text
@@ -271,8 +277,16 @@ namespace winrt::Microsoft::Terminal::TerminalControl::implementation
     // - <none>
     void TSFInputControl::_textUpdatingHandler(CoreTextEditContext sender, CoreTextTextUpdatingEventArgs const& args)
     {
+        // TODO: Remove
+        using namespace std::string_literals;
+        OutputDebugString(L"👀 --- _textUpdatingHandler() called.\n");
+
         const auto text = args.Text();
         const auto range = args.Range();
+
+        // TODO: Remove
+        OutputDebugString((L"👀 --- Text:  "s + text.c_str() + L"\n").c_str());
+        OutputDebugString((L"👀 --- Range: ["s + std::to_wstring(range.StartCaretPosition) + L", " + std::to_wstring(range.EndCaretPosition) + L"]\n").c_str());
 
         try
         {
@@ -315,6 +329,11 @@ namespace winrt::Microsoft::Terminal::TerminalControl::implementation
     // - <none>
     void TSFInputControl::_SendAndClearText()
     {
+        // TODO: Remove
+        using namespace std::string_literals;
+        OutputDebugString(L"👀 --- _SendAndClearText() called.\n");
+        OutputDebugString((L"👀 --- inputBuffer was L\""s + _inputBuffer + L"\" and will be cleared.\n").c_str());
+
         // call event handler with data handled by parent
         _compositionCompletedHandlers(_inputBuffer);
 
